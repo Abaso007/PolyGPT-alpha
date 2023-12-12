@@ -59,11 +59,7 @@ def img_review(image_path, prompt):
         }
     )
 
-    result = ""
-    for item in output:
-        result += item
-
-    return result
+    return "".join(output)
 
 
 # function to use stability-ai model to generate image

@@ -35,7 +35,7 @@ def scrape_website(url, objective):
     # Send the POST request
     post_url = f"https://chrome.browserless.io/content?token={browserless_api_key}"
     response = requests.post(post_url, headers=headers, data=data_json, timeout=10)
-    
+
     # Check the response status code
     if response.status_code == 200:
         soup = BeautifulSoup(response.content, "html.parser")
@@ -58,15 +58,11 @@ def scrape_website(url, objective):
             documents, embeddings, url=neo4j_url, username=neo4j_username, password=neo4j_password
         )
 
-        # Perform a similarity search with the summarized text
-        matched_documents = []
         docs_with_score = db.similarity_search_with_score(output, k=2)
-        for doc, score in docs_with_score:
-            matched_documents.append({
-                "score": score,
-                "content": doc.page_content
-            })
-
+        matched_documents = [
+            {"score": score, "content": doc.page_content}
+            for doc, score in docs_with_score
+        ]
         return {
             "summary": output,
             "matched_documents": matched_documents

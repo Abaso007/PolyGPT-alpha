@@ -89,9 +89,8 @@ class PolyDatabase(AgentDB):
                 ):
                     return [{"role": m.role, "content": m.content} for m in messages]
 
-                else:
-                    LOG.error(f"Chat history not found with task_id: {task_id}")
-                    raise NotFoundError("Chat history not found")
+                LOG.error(f"Chat history not found with task_id: {task_id}")
+                raise NotFoundError("Chat history not found")
         except SQLAlchemyError as e:
             LOG.error(f"SQLAlchemy error while getting chat history: {e}")
             raise
@@ -140,9 +139,8 @@ class PolyDatabase(AgentDB):
                 ):
                     return [{"name": a.name, "args": a.args} for a in actions]
 
-                else:
-                    LOG.error(  f"Action history not found with task_id: {task_id}"  )
-                    raise NotFoundError("Action history not found")
+                LOG.error(  f"Action history not found with task_id: {task_id}"  )
+                raise NotFoundError("Action history not found")
         except SQLAlchemyError as e:
             LOG.error(f"SQLAlchemy error while getting action history: {e}")
             raise

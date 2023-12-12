@@ -21,10 +21,6 @@ def generate_response(message):
 if __name__ == '__main__':
   # Get message from command line or user input
   import sys
-  if len(sys.argv) > 1:
-    message = sys.argv[1]
-  else:
-    message = input("Enter a prompt: ")
-  
+  message = sys.argv[1] if len(sys.argv) > 1 else input("Enter a prompt: ")
   response = generate_response(message)
   print(response)
