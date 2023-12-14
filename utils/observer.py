@@ -22,10 +22,9 @@ class Observable:
             if observer not in self._async_observers[event]:
                 self._async_observers[event].append(observer)
                 # logging.info(f"Async observer {observer} added for event '{event}'")
-        else:
-            if observer not in self._observers[event]:
-                self._observers[event].append(observer)
-                # logging.info(f"Observer {observer} added for event '{event}'")
+        elif observer not in self._observers[event]:
+            self._observers[event].append(observer)
+            # logging.info(f"Observer {observer} added for event '{event}'")
 
         logging.info(f"Finished adding observer {observer} for event '{event}'")
 

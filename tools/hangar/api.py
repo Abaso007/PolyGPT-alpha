@@ -69,7 +69,7 @@ class HangarClient:
     headers = {"Content-Type": "application/json"}
 
     def __init__(self, namespace: str):
-        self.roleArn = "arn:aws:iam::" + AwsAccountId + ":role/name"
+        self.roleArn = f"arn:aws:iam::{AwsAccountId}:role/name"
         self.namespace = "_".join([TenantId, namespace])
         self.workspaces = []
 
@@ -86,23 +86,18 @@ class HangarClient:
             }
             resources.append(resource)
 
-        payload = {
+        return {
             "namespace": self.namespace,
             "buffers": {
                 "terraform": {
                     "name": "terraform",
-                    "credential": {
-                        "roleArn": self.roleArn
-                    },
-                    "resources": resources
+                    "credential": {"roleArn": self.roleArn},
+                    "resources": resources,
                 },
-                "kubernetes": {
-                    "name": "kubernetes"
-                }
+                "kubernetes": {"name": "kubernetes"},
             },
-            "loggingStrategy": "Hangar"
+            "loggingStrategy": "Hangar",
         }
-        return payload
 
     def provision(self, workspaces: List[Workspace]):
         payload = self.form_payload(workspaces)

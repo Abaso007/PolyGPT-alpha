@@ -120,17 +120,15 @@ class ChatHandler:
 
     # Utility methods
     def add_agent(self, agent: autogen.ConversableAgent):
-        if agent not in self.agents:
-            self.agents.append(agent)
-            self.agent_priorities[agent.name] = 1  # Default priority
-            # Default status
-            self.agent_statuses[agent.name] = AgentStatus.ONLINE
-        else:
+        if agent in self.agents:
             raise ValueError(f"Agent {agent.name} already exists")
+        self.agents.append(agent)
+        self.agent_priorities[agent.name] = 1  # Default priority
+        # Default status
+        self.agent_statuses[agent.name] = AgentStatus.ONLINE
 
     def remove_agent(self, agent_name: str):
-        agent_to_remove = self.get_agent_by_name(agent_name)
-        if agent_to_remove:
+        if agent_to_remove := self.get_agent_by_name(agent_name):
             self.agents.remove(agent_to_remove)
             del self.agent_priorities[agent_name]
             del self.agent_statuses[agent_name]
@@ -138,10 +136,7 @@ class ChatHandler:
             raise ValueError(f"Agent {agent_name} not found")
 
     def get_agent_by_name(self, name: str) -> autogen.ConversableAgent:
-        for agent in self.agents:
-            if agent.name == name:
-                return agent
-        return None
+        return next((agent for agent in self.agents if agent.name == name), None)
 
     def reset_chat(self):
         self.chat_history = []

@@ -28,9 +28,7 @@ class ChatManager:
     @property
     def latest_message(self) -> Optional[dict]:
         """Retrieve the most recent message exchanged in conversations."""
-        if not self.messages:
-            return None
-        return self.messages[-1]
+        return None if not self.messages else self.messages[-1]
 
     def add_message(self, message: dict):
         """Add a new message to the list of messages."""

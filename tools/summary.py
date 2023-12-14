@@ -32,6 +32,4 @@ def summary(content, objective):
         verbose=True
     )
 
-    output = summary_chain.run(input_documents=docs, objective=objective)
-
-    return output
+    return summary_chain.run(input_documents=docs, objective=objective)

@@ -282,9 +282,8 @@ class AgentDB:
                     .first()
                 ):
                     return convert_to_task(task_obj, self.debug_enabled)
-                else:
-                    LOG.error(f"Task not found with task_id: {task_id}")
-                    raise NotFoundError("Task not found")
+                LOG.error(f"Task not found with task_id: {task_id}")
+                raise NotFoundError("Task not found")
         except SQLAlchemyError as e:
             LOG.error(f"SQLAlchemy error while getting task: {e}")
             raise
@@ -309,11 +308,10 @@ class AgentDB:
                 ):
                     return convert_to_step(step, self.debug_enabled)
 
-                else:
-                    LOG.error(
-                        f"Step not found with task_id: {task_id} and step_id: {step_id}"
-                    )
-                    raise NotFoundError("Step not found")
+                LOG.error(
+                    f"Step not found with task_id: {task_id} and step_id: {step_id}"
+                )
+                raise NotFoundError("Step not found")
         except SQLAlchemyError as e:
             LOG.error(f"SQLAlchemy error while getting step: {e}")
             raise
@@ -379,10 +377,9 @@ class AgentDB:
                     .first()
                 ):
                     return convert_to_artifact(artifact_model)
-                else:
-                    LOG.error(
-                        f"Artifact not found with and artifact_id: {artifact_id}")
-                    raise NotFoundError("Artifact not found")
+                LOG.error(
+                    f"Artifact not found with and artifact_id: {artifact_id}")
+                raise NotFoundError("Artifact not found")
         except SQLAlchemyError as e:
             LOG.error(f"SQLAlchemy error while getting artifact: {e}")
             raise

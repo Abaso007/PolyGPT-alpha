@@ -16,12 +16,7 @@ class LlmConfiguration:
             return
 
         file_name = "OAI_CONFIG_LIST.json"
-        filter_dict = None
-
-        # If filter_llms is provided, use it for filtering
-        if filter_llms:
-            filter_dict = {"model": filter_llms}
-
+        filter_dict = {"model": filter_llms} if filter_llms else None
         self.config = self._find_and_load_config(file_name, filter_dict)
         LlmConfiguration._is_initialized = True
 

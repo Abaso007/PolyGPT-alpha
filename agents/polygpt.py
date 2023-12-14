@@ -56,9 +56,7 @@ class PolyGPTAgents(Observable):
             if not agent:
                 return
 
-            agent_reactions = self.reactions.get(agent_name)
-
-            if agent_reactions:
+            if agent_reactions := self.reactions.get(agent_name):
                 reaction_method_name = f"on_{event}"
                 reaction_method = getattr(
                     agent_reactions, reaction_method_name, agent_reactions.default_reaction)
